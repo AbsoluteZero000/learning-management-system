@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ElsApplication<com.els-els>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.els.els.ElsApplication",
+            "projectName": "com.els-els",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
