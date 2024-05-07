@@ -2,9 +2,13 @@ package com.els.models;
 
 import javax.persistence.*;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Table(name = "instructors")
 public class Instructor {
@@ -16,20 +20,5 @@ public class Instructor {
     @JoinColumn(name = "userid", nullable = false)
     private User userid;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public User getUserid() {
-        return userid;
-    }
-
-    public void setUserid(User userid) {
-        this.userid = userid;
-    }
-
+    private int yearsOfExperience;
 }
