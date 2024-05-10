@@ -15,8 +15,6 @@ import org.apache.http.util.EntityUtils;
 import com.els.models.Enrollment;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Singleton
 public class ExternalApiService {

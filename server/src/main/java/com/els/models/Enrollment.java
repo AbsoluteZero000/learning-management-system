@@ -1,8 +1,5 @@
 package com.els.models;
 
-import org.hibernate.annotations.Collate;
-
-import jakarta.inject.Named;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +29,6 @@ public class Enrollment {
 
     @Column(name = "status")
     private String status;
-    
+
 
 }
