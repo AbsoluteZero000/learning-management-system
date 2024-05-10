@@ -50,4 +50,18 @@ public class CourseRepo {
     return typedQuery.getResultList();
 
   }
+
+
+public boolean enroll(String sid, String cid) {
+    String query = "SELECT c FROM Course c WHERE c.id = :cid";
+    TypedQuery<Course> typedQuery = em.createQuery(query, Course.class);
+    typedQuery.setParameter("cid", cid);
+    Course course = typedQuery.getSingleResult();
+    if(course.getCapacity() > 0){
+      course.setCapacity(course.getCapacity() - 1);
+      em.merge(course);
+      return true;
+    }
+    return false;
+}
 }

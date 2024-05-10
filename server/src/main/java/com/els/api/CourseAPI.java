@@ -31,12 +31,12 @@ public class CourseAPI {
   private EntityManager em;
 
   @Inject
-  CourseRepo repo;
+  CourseRepo courseRepo;
 
   @POST
   @Path("/addcourse")
   public Response addCourse(Course course) {
-    if(repo.addCourse(course))
+    if(courseRepo.addCourse(course))
       return Response.status(Status.CREATED).entity("Course created successfully!").build();
     return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to create course.").build();
 
@@ -54,21 +54,29 @@ public class CourseAPI {
   @Path("/sorted")
   @Produces(MediaType.APPLICATION_JSON)
   public List<Course> getAllCoursesSorted() {
-    return repo.getAllCoursesSorted();
+    return courseRepo.getAllCoursesSorted();
   }
 
   @GET
   @Path("/search/name/{name}")
   @Produces(MediaType.APPLICATION_JSON)
   public List<Course> searchCourseByName(@PathParam("name") String name) {
-    return repo.searchCourseByName(name);
+    return courseRepo.searchCourseByName(name);
   }
 
   @GET
   @Path("/search/category/{name}")
   @Produces(MediaType.APPLICATION_JSON)
   public List<Course> searchCourseByCategory(@PathParam("name") String name) {
-    return repo.searchCourseByCategory(name);
+    return courseRepo.searchCourseByCategory(name);
+  }
+
+  @POST
+  @Path("/enroll/{sid}/{cid}")
+  public Response enrollCourse(@PathParam("sid") String sid, @PathParam("cid") String cid) {
+    if(courseRepo.enroll(sid, cid))
+      return Response.status(Status.OK).entity("Course enrolled successfully!").build();
+    return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to enroll course.").build();
   }
 
 }
