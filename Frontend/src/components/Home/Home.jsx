@@ -1,10 +1,17 @@
 import { useAuth } from "../../contexts/AuthProvider";
 
 function Home() {
+  const auth = useAuth();
+  
+  const handleLogout = () => {
+    auth.logOut();
+  };
+
   return (
     <div>
       <h1>Homepage</h1>
-      <label>Username is: {useAuth().user}</label>
+      <label>Username is: {auth.user}</label>
+      <button onClick={handleLogout}>Log out</button>
     </div>
   );
 }

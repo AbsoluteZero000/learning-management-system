@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     setUser(null);
-    localStorage.removeItem("site");
+    localStorage.clear();
     navigate("/");
   };
 
