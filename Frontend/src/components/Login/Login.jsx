@@ -10,11 +10,7 @@ export default function Login() {
   const auth = useAuth();
   const handleSubmitEvent = (e) => {
     e.preventDefault();
-    if (input.username !== "" && input.password !== "") {
-      auth.loginAction(input);
-      return;
-    }
-    alert("Invalid input");
+    auth.loginAction(input);
   };
 
   const handleInput = (e) => {
@@ -34,13 +30,15 @@ export default function Login() {
           placeholder="Username"
           name="username"
           onChange={handleInput}
+          required
         />
         <br></br>
         <input
-          type="text"
+          type="password"
           placeholder="Password"
           name="password"
           onChange={handleInput}
+          required
         />
         <br></br>
         <button>Login</button>

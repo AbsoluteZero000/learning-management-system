@@ -1,9 +1,9 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-const LoggedInRoute = () => {
+const GuestRoutes = () => {
   if (localStorage.getItem("site")) return <Navigate to="home" />;
   return <Outlet />;
 };
 
-export default LoggedInRoute;
+export default GuestRoutes;
