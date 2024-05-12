@@ -2,9 +2,9 @@ import { Routes, Route } from "react-router-dom";
 import Welcome from "../components/Welcome/Welcome";
 import Login from "../components/Login/Login";
 import Signup from "../components/Signup/Signup";
-import PrivateRoute from "./PrivateRoutes";
 import Home from "../components/Home/Home";
 import GuestRoutes from "./GuestRoutes";
+import PrivateRoute from "./privateroutes";
 
 function RoutesComponent() {
   return (
