@@ -128,8 +128,8 @@ public class CourseRepo {
     typedQuery.setParameter("sid", sid);
     Enrollment enrollment = typedQuery.getSingleResult();
 
-    TypedQuery<Course> courseQuery = em.createQuery(query, Course.class);
     query = "Select c FROM Course c WHERE c.id = :cid";
+    TypedQuery<Course> courseQuery = em.createQuery(query, Course.class);
     courseQuery.setParameter("cid", cid);
     Course course = courseQuery.getSingleResult();
 
