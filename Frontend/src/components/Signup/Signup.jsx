@@ -14,7 +14,7 @@ export default function Signup() {
 
   const handleSignup = async (formData) => {
     try {
-      const res = await axios.post("http://127.0.0.1:5000/signup", formData);
+      const res = await axios.post("/signup", formData);
       if (res.data[1] === 400) {
         alert(res.data[0].message);
         return;

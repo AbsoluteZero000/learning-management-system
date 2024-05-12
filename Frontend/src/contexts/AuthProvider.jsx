@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
 
   const loginAction = async (data) => {
     try {
-      const res = await axios.post("http://127.0.0.1:5000/login", data);
+      const res = await axios.post("/login", data);
       if (res.data[1] === 401) {
         alert(res.data[0].message);
         return;
