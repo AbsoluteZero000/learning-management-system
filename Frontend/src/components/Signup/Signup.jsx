@@ -23,7 +23,7 @@ export default function Signup() {
         navigate("/");
       }
     } catch (error) {
-      alert(error);
+      alert("Network Error.");
     }
   };
 

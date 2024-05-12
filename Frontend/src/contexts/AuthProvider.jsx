@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem("user", response);
       navigate("home");
     } catch (err) {
-      alert(err);
+      alert("Network Error.");
     }
   };
 
