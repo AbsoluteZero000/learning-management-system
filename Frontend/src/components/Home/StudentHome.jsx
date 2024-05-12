@@ -31,7 +31,7 @@ function Student() {
 
   return (
     <div>
-      <h2>Instructor</h2>
+      <h2>Student</h2>
       <div>
         <button onClick={showMakeCourseReview}>Review a course</button>
         <button onClick={showEnrollments}>Show Enrollments</button>
