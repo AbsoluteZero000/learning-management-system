@@ -166,4 +166,13 @@ public List<Notification> getNotfications(Integer sid) {
   }
   return notifications;
 }
+
+
+public List<Course> getEnrolledCourses(Integer sid) {
+  String query = "SELECT c FROM Course c WHERE c.id IN (SELECT e.cid FROM Enrollment e WHERE e.sid = :sid AND e.status = :status)";
+  TypedQuery<Course> typedQuery = em.createQuery(query, Course.class);
+  typedQuery.setParameter("status", "accepted");
+  typedQuery.setParameter("sid", sid);
+  return typedQuery.getResultList();
+}
 }

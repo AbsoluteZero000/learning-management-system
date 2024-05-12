@@ -82,6 +82,12 @@ public class CourseAPI {
     return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to enroll course.").build();
   }
 
+  @GET
+  @Path("/enroll/{sid}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Course> getEnrolledCourses(@PathParam("sid") Integer sid) {
+    return courseRepo.getEnrolledCourses(sid);
+  }
   @PUT
   @Path("/enroll/{cid}/{sid}/{status}")
   public Response updateCourse( @PathParam("cid") Integer cid, @PathParam("sid") Integer sid, @PathParam("status") Integer status) {
@@ -99,7 +105,7 @@ public class CourseAPI {
   @GET
   @Path("/notification/{sid}")
   @Produces(MediaType.APPLICATION_JSON)
-  public List<Notification> getEnrolledCourses(@PathParam("sid") Integer sid) {
+  public List<Notification> getNotifications(@PathParam("sid") Integer sid) {
     return courseRepo.getNotfications(sid);
   }
   @GET
