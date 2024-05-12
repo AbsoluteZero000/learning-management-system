@@ -20,8 +20,8 @@ function Home() {
   return (
     <div>
       <h1>Welcome, {currentUser.name}!</h1>
-      {role && roleOptions[role]}
       <button onClick={handleLogout}>Log out</button>
+      {role && roleOptions[role]}
     </div>
   );
 }

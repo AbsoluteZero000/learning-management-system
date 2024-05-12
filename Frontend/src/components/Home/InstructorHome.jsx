@@ -25,7 +25,7 @@ function Instructor() {
 
   return (
     <div>
-      <h2>Instructor Page</h2>
+      <h2>Instructor</h2>
       <div>
         <button onClick={showCreateCourse}>Create Course</button>
         <button onClick={showStudentEnrollments}>Student Enrollments</button>
