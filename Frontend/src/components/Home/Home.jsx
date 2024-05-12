@@ -6,6 +6,7 @@ function Home() {
   const auth = useAuth();
   const [fact, setFact] = useState("");
   const [loading, setLoading] = useState(true);
+  const currentUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +29,7 @@ function Home() {
 
   return (
     <div>
-      <h1>Welcome, {auth.user}!</h1>
+      <h1>Welcome, {currentUser.name}!</h1>
       <div>{loading ? <p>Loading...</p> : <p>{fact}</p>}</div>
       <button onClick={handleLogout}>Log out</button>
     </div>
