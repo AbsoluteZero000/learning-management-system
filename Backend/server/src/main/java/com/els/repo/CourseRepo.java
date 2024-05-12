@@ -175,4 +175,12 @@ public List<Course> getEnrolledCourses(Integer sid) {
   typedQuery.setParameter("sid", sid);
   return typedQuery.getResultList();
 }
+
+
+public boolean deleteEnrollment(Integer valueOf) {
+  Enrollment enrollment = em.find(Enrollment.class, valueOf);
+  if(enrollment == null) return false;
+  em.remove(enrollment);
+  return true;
+}
 }
