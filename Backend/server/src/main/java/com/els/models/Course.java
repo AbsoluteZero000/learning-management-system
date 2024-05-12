@@ -44,6 +44,9 @@ public class Course {
     @Column(name = "capacity")
     private Integer capacity;
 
+    @Column(name = "status")
+    private String status;
+
     @Column(name = "instructorid")
     private String instructorid;
 

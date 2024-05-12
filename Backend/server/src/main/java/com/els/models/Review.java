@@ -1,7 +1,5 @@
 package com.els.models;
 
-import com.els.util.SignupWrapper;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,33 +10,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "students")
-public class Student extends Account{
-
+@Entity
+@Table(name = "reviews")
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+    @Column(name = "cid")
+    private Integer cid;
 
-    @Column(name = "afflication")
-    private String afflication;
+    @Column(name = "sid")
+    private Integer sid;
 
-    @Column(name = "bio")
-    private String bio;
+    @Column(name = "rating")
+    private Float rating;
 
-    public Student(SignupWrapper wrapper){
-        super(wrapper);
-        this.afflication = wrapper.afflication;
-        this.bio = wrapper.bio;
-    }
-
-    public Account getAccount(){
-        return super.getAccount();
-    }
-
+    @Column(name = "review")
+    private String review;
 
 }

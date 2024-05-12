@@ -3,6 +3,7 @@ package com.els.api;
 import java.util.List;
 
 import com.els.models.Course;
+import com.els.models.Review;
 import com.els.repo.CourseRepo;
 
 import jakarta.annotation.Resource;
@@ -13,6 +14,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -72,11 +74,47 @@ public class CourseAPI {
   }
 
   @POST
-  @Path("/enroll/{sid}/{cid}")
-  public Response enrollCourse(@PathParam("sid") String sid, @PathParam("cid") String cid) {
-    if(courseRepo.enroll(sid, cid))
+  @Path("/enroll/{cid}")
+  public Response enrollCourse( @PathParam("cid") String cid) {
+    if(courseRepo.enroll(cid))
       return Response.status(Status.OK).entity("Course enrolled successfully!").build();
     return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to enroll course.").build();
   }
+  @PUT
+  @Path("/update/{id}/{status}")
+  public Response updateCourse(@PathParam("id") String id, @PathParam("status") Integer status) {
+    if(courseRepo.updateCourse(Integer.valueOf(id), status == 0 ? false : true))
+      return Response.status(Status.OK).entity("Course updated successfully!").build();
+    return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to update course.").build();
+  }
 
+  @GET
+  @Path("/pending")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Course> getAllPendingCourses() {
+    return courseRepo.getAllPendingCourses();
+  }
+
+  @POST
+  @Path("/review")
+  public Response review(Review review) {
+    try{
+      courseRepo.review(review);
+      return Response.status(Status.OK).entity("Course reviewed successfully!").build();
+    }catch(Exception e){return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to review course.").build();}
+  }
+
+  @GET
+  @Path("/reviews/course/{cid}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Review> getReviewsByCourse(@PathParam("cid") int cid) {
+    return courseRepo.getAllReviewsForCid(cid);
+  }
+
+  @GET
+  @Path("/reviews/student/{sid}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Review> getReviewsByStudent(@PathParam("sid") int sid) {
+    return courseRepo.getAllReviewsForSid(sid);
+  }
 }

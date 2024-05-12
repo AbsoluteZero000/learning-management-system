@@ -1,10 +1,9 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import service
 
 app = Flask(__name__)
-
-# Define database path
+app.secret_key = "smthweird"
 @app.route("/signup", methods=["POST"])
 def signup():
   """User signup endpoint"""
@@ -20,6 +19,8 @@ def login_route():
     return jsonify({"message": "Missing required fields"}), 400
 
   response = service.login(data["email"], data["password"])
+  session["user_id"] = response["user"]["id"]
+
   return jsonify(response)
 
 @app.route("/users", methods=["GET", "POST"])

@@ -12,26 +12,20 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import com.els.models.Enrollment;
 
 import java.util.ArrayList;
 
 @Singleton
 public class ExternalApiService {
 
-    public String postDataToExternalApi(String url, Enrollment enrollment) throws Exception {
+    public String postDataToExternalApi(String url, int id) throws Exception {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost request = new HttpPost(url);
 
-        if (enrollment != null ) {
             ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-            nameValuePairs.add(new BasicNameValuePair("id", enrollment.getId().toString()));
-            nameValuePairs.add(new BasicNameValuePair("courseId", enrollment.getCourseid().toString()));
-            nameValuePairs.add(new BasicNameValuePair("studentId", enrollment.getStudentid().toString()));
-            nameValuePairs.add(new BasicNameValuePair("status", enrollment.getStatus()));
+            nameValuePairs.add(new BasicNameValuePair("id", Integer.toString(id)));
 
             request.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-        }
 
         CloseableHttpResponse response = httpClient.execute(request);
 
