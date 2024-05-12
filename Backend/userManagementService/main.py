@@ -1,9 +1,13 @@
 from flask import Flask, jsonify, request, session
+from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 import service
 
 app = Flask(__name__)
 app.secret_key = "smthweird"
+CORS(app)
+
+
 @app.route("/signup", methods=["POST"])
 def signup():
   """User signup endpoint"""
@@ -19,7 +23,7 @@ def login_route():
     return jsonify({"message": "Missing required fields"}), 400
 
   response = service.login(data["email"], data["password"])
-  session["user_id"] = response["user"]["id"]
+  session["user_id"] = response[0]["id"]
 
   return jsonify(response)
 

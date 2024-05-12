@@ -3,6 +3,7 @@ package com.els.api;
 import java.util.List;
 
 import com.els.models.Course;
+import com.els.models.Notification;
 import com.els.models.Review;
 import com.els.repo.CourseRepo;
 
@@ -74,9 +75,17 @@ public class CourseAPI {
   }
 
   @POST
-  @Path("/enroll/{cid}")
-  public Response enrollCourse( @PathParam("cid") String cid) {
-    if(courseRepo.enroll(cid))
+  @Path("/enroll/{cid}/{sid}")
+  public Response enrollCourse( @PathParam("cid") Integer cid, @PathParam("sid") Integer sid) {
+    if(courseRepo.enroll(cid, sid))
+      return Response.status(Status.OK).entity("Course enrolled successfully!").build();
+    return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to enroll course.").build();
+  }
+
+  @PUT
+  @Path("/enroll/{cid}/{sid}/{status}")
+  public Response updateCourse( @PathParam("cid") Integer cid, @PathParam("sid") Integer sid, @PathParam("status") Integer status) {
+    if(courseRepo.updateEnrollment(cid, sid, status == 0 ? false : true))
       return Response.status(Status.OK).entity("Course enrolled successfully!").build();
     return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to enroll course.").build();
   }
@@ -87,7 +96,12 @@ public class CourseAPI {
       return Response.status(Status.OK).entity("Course updated successfully!").build();
     return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to update course.").build();
   }
-
+  @GET
+  @Path("/notification/{sid}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Notification> getEnrolledCourses(@PathParam("sid") Integer sid) {
+    return courseRepo.getNotfications(sid);
+  }
   @GET
   @Path("/pending")
   @Produces(MediaType.APPLICATION_JSON)
