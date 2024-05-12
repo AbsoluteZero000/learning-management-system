@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
-const InstructorRegistrationPage = () => {
+const InstructorRegistrationPage = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    role: "instructor",
     affiliation: "",
     yearsOfExperience: "",
     bio: "",
@@ -20,7 +21,7 @@ const InstructorRegistrationPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    onSubmit(formData);
   };
 
   return (

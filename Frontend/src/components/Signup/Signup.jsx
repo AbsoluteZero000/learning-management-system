@@ -1,12 +1,30 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import InstructorSignup from "./InstructorSignup";
 import StudentSignup from "./StudentSignup";
+import axios from "axios";
 
 export default function Signup() {
   const [signup, setSignup] = useState("student");
+  const navigate = useNavigate();
 
   const handleUserTypeChange = (event) => {
     setSignup(event.target.value);
+  };
+
+  const handleSignup = async (formData) => {
+    try {
+      const res = await axios.post("http://127.0.0.1:5000/signup", formData);
+      if (res.data[1] === 400) {
+        alert(res.data[0].message);
+        return;
+      } else if (res.data[1] === 201) {
+        alert(res.data[0].message);
+        navigate("/");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -30,7 +48,11 @@ export default function Signup() {
         />
         Instructor
       </label>
-      {signup === "student" ? <StudentSignup /> : <InstructorSignup />}
+      {signup === "student" ? (
+        <StudentSignup onSubmit={handleSignup} />
+      ) : (
+        <InstructorSignup onSubmit={handleSignup} />
+      )}
     </div>
   );
 }
