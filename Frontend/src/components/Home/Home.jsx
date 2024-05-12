@@ -28,9 +28,7 @@ function Home() {
 
   return (
     <div>
-      <h1>Homepage</h1>
-      <label>Username is: {auth.user}</label>
-      <br></br>
+      <h1>Welcome, {auth.user}!</h1>
       <div>{loading ? <p>Loading...</p> : <p>{fact}</p>}</div>
       <button onClick={handleLogout}>Log out</button>
     </div>

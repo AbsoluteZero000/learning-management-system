@@ -4,7 +4,7 @@ import Login from "../components/Login/Login";
 import Signup from "../components/Signup/Signup";
 import Home from "../components/Home/Home";
 import GuestRoutes from "./GuestRoutes";
-import PrivateRoute from "./privateroutes";
+import PrivateRoute from "./PrivateRoutes";
 
 function RoutesComponent() {
   return (
