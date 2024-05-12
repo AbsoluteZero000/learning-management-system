@@ -1,27 +1,17 @@
 import { useAuth } from "../../contexts/AuthProvider";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import Admin from "./AdminHome";
+import Student from "./StudentHome";
+import Instructor from "./InstructorHome";
 
 function Home() {
   const auth = useAuth();
-  const [fact, setFact] = useState("");
-  const [loading, setLoading] = useState(true);
   const currentUser = JSON.parse(localStorage.getItem("user"));
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://catfact.ninja/fact");
-        setFact(response.data.fact);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const role = currentUser.role;
+  const roleOptions = {
+    admin: <Admin />,
+    student: <Student />,
+    instructor: <Instructor />,
+  };
 
   const handleLogout = () => {
     auth.logOut();
@@ -30,7 +20,7 @@ function Home() {
   return (
     <div>
       <h1>Welcome, {currentUser.name}!</h1>
-      <div>{loading ? <p>Loading...</p> : <p>{fact}</p>}</div>
+      {role && roleOptions[role]}
       <button onClick={handleLogout}>Log out</button>
     </div>
   );
