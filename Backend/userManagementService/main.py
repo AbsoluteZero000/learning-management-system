@@ -23,7 +23,7 @@ def login_route():
     return jsonify({"message": "Missing required fields"}), 400
 
   response = service.login(data["email"], data["password"])
-  session["user_id"] = response["user"]["id"]
+  session["user_id"] = response[0]["id"]
 
   return jsonify(response)
 
