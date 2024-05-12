@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import AuthProvider from "./contexts/AuthProvider";
-import RoutesComponent from "./routes/Routes";
+import RoutesComponent from "./routes/routes";
 import axios from "axios";
 
 function App() {
