@@ -13,7 +13,6 @@ export default function Signup() {
   };
 
   const handleSignup = async (formData) => {
-    formData.preventDefault();
     try {
       const res = await axios.post("/signup", formData);
       if (res.data[1] === 400) {
