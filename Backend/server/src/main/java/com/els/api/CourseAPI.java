@@ -110,6 +110,12 @@ public class CourseAPI {
     return courseRepo.getEnrolledCourses(sid);
   }
   @GET
+  @Path("/enroll/all/{sid}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Course> getAllEnrollments(@PathParam("sid") Integer sid) {
+    return courseRepo.getAllEnrollments(sid);
+  }
+  @GET
   @Path("/enroll/instructor/{iid}")
   @Produces(MediaType.APPLICATION_JSON)
   public List<Enrollment> getInstructedEnrollments(@PathParam("iid") Integer iid) {
