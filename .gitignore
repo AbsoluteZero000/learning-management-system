@@ -1,4 +1,4 @@
 .vscode
 *.idea
 Frontend/node_modules
-**/server.war
+Backend/server/docker/server.war
