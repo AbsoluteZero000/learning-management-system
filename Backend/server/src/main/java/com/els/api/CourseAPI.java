@@ -3,6 +3,7 @@ package com.els.api;
 import java.util.List;
 
 import com.els.models.Course;
+import com.els.models.Notification;
 import com.els.models.Review;
 import com.els.repo.CourseRepo;
 
@@ -12,7 +13,9 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.OPTIONS;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -44,7 +47,17 @@ public class CourseAPI {
 
   }
 
-
+  @OPTIONS
+  @Path("{path : .*}")
+  public Response options() {
+      return Response.ok("")
+              .header("Access-Control-Allow-Origin", "*")
+              .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+              .header("Access-Control-Allow-Credentials", "true")
+              .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+              .header("Access-Control-Max-Age", "1209600")
+              .build();
+  }
   @GET
   @Path("/get/{id}")
   public String getCourse(@PathParam("id") String id) {
@@ -74,9 +87,29 @@ public class CourseAPI {
   }
 
   @POST
-  @Path("/enroll/{cid}")
-  public Response enrollCourse( @PathParam("cid") String cid) {
-    if(courseRepo.enroll(cid))
+  @Path("/enroll/{cid}/{sid}")
+  public Response enrollCourse( @PathParam("cid") Integer cid, @PathParam("sid") Integer sid) {
+    if(courseRepo.enroll(cid, sid))
+      return Response.status(Status.OK).entity("Course enrolled successfully!").build();
+    return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to enroll course.").build();
+  }
+  @DELETE
+  @Path("/enroll/{id}")
+  public Response deleteEnrollment(@PathParam("id") String id) {
+    if(courseRepo.deleteEnrollment(Integer.valueOf(id)))
+      return Response.status(Status.OK).entity("Course deleted successfully!").build();
+    return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to delete course.").build();
+  }
+  @GET
+  @Path("/enroll/{sid}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Course> getEnrolledCourses(@PathParam("sid") Integer sid) {
+    return courseRepo.getEnrolledCourses(sid);
+  }
+  @PUT
+  @Path("/enroll/{cid}/{sid}/{status}")
+  public Response updateCourse( @PathParam("cid") Integer cid, @PathParam("sid") Integer sid, @PathParam("status") Integer status) {
+    if(courseRepo.updateEnrollment(cid, sid, status == 0 ? false : true))
       return Response.status(Status.OK).entity("Course enrolled successfully!").build();
     return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to enroll course.").build();
   }
@@ -87,7 +120,12 @@ public class CourseAPI {
       return Response.status(Status.OK).entity("Course updated successfully!").build();
     return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to update course.").build();
   }
-
+  @GET
+  @Path("/notification/{sid}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Notification> getNotifications(@PathParam("sid") Integer sid) {
+    return courseRepo.getNotfications(sid);
+  }
   @GET
   @Path("/pending")
   @Produces(MediaType.APPLICATION_JSON)
