@@ -183,4 +183,10 @@ public boolean deleteEnrollment(Integer valueOf) {
   em.remove(enrollment);
   return true;
 }
+
+
+public List<Course> getInstructedCourses(Integer iid) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getInstructedCourses'");
+}
 }
