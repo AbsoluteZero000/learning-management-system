@@ -27,6 +27,7 @@ function SearchCourse() {
 
   useEffect(() => {
     fetchCourses();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [criteria, value]);
 
   return (
