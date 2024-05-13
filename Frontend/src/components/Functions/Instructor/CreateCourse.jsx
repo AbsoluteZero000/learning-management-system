@@ -21,11 +21,11 @@ function CreateCourse() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
+      await axios.post(
         "http://localhost:8080/server/api/course/addcourse",
         courseData
       );
-      alert(res);
+      alert("Course created successfully!");
     } catch (error) {
       alert("Network Error.");
     }

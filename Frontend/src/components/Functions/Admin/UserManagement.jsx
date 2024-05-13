@@ -29,7 +29,7 @@ function UserManagement() {
     }
 
     try {
-      await axios.delete(`http://127.0.0.1:5000/users/${userId}`);
+      await axios.delete(`/users/${userId}`);
       setUsers(users.filter((user) => user.id !== userId));
     } catch (error) {
       console.error("Error deleting user:", error);
