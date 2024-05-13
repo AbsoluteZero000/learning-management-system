@@ -1,14 +1,14 @@
 import { useState } from "react";
 import CreateCourse from "../Functions/Instructor/CreateCourse";
 import StudentEnrollments from "../Functions/Instructor/StudentEnrollments";
-import ViewCourse from "../Functions/Instructor/ViewCourse";
+import SearchCourse from "../Functions/Instructor/SearchCourse";
 
 function Instructor() {
   const [currFunction, setCurrFunction] = useState(null);
   const functions = {
     createCourse: <CreateCourse />,
     studentEnrollments: <StudentEnrollments />,
-    viewCourse: <ViewCourse />,
+    viewCourse: <SearchCourse />,
   };
 
   const showCreateCourse = () => {
