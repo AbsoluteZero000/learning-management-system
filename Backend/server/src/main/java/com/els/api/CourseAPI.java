@@ -3,6 +3,7 @@ package com.els.api;
 import java.util.List;
 
 import com.els.models.Course;
+import com.els.models.Enrollment;
 import com.els.models.Notification;
 import com.els.models.Review;
 import com.els.repo.CourseRepo;
@@ -108,11 +109,18 @@ public class CourseAPI {
     return courseRepo.getEnrolledCourses(sid);
   }
   @GET
-  @Path("/enroll/{iid}")
+  @Path("/enroll/instructor/{iid}")
   @Produces(MediaType.APPLICATION_JSON)
-  public List<Course> getInstructedCourses(@PathParam("iid") Integer iid) {
-    return courseRepo.getInstructedCourses(iid);
+  public List<Enrollment> getInstructedEnrollments(@PathParam("iid") Integer iid) {
+    return courseRepo.getInstructorEnrollments(iid);
   }
+  @GET
+  @Path("/enroll/instructor/pending/{iid}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Enrollment> getInstructedPendingEnrollments(@PathParam("iid") Integer iid) {
+    return courseRepo.getInstructorEnrollments(iid);
+  }
+
   @PUT
   @Path("/enroll/{cid}/{sid}/{status}")
   public Response updateCourse( @PathParam("cid") Integer cid, @PathParam("sid") Integer sid, @PathParam("status") Integer status) {

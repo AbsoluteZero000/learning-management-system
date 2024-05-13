@@ -1,5 +1,6 @@
 package com.els.repo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.els.models.Course;
@@ -185,8 +186,33 @@ public boolean deleteEnrollment(Integer valueOf) {
 }
 
 
-public List<Course> getInstructedCourses(Integer iid) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getInstructedCourses'");
-}
+public List<Enrollment> getInstructorEnrollments(Integer iid) {
+    String query = "SELECT c FROM Course c WHERE c.instructorid = :iid";
+    TypedQuery<Course> typedQuery = em.createQuery(query, Course.class);
+    typedQuery.setParameter("iid", iid);
+    List<Course> courses = typedQuery.getResultList();
+    List<Enrollment> enrollments = new ArrayList<>();
+    for(Course course : courses) {
+      String query2 = "SELECT e FROM Enrollment e WHERE e.cid = :cid";
+      TypedQuery<Enrollment> typedQuery2 = em.createQuery(query2, Enrollment.class);
+      typedQuery2.setParameter("cid", course.getId());
+      enrollments.addAll(typedQuery2.getResultList());
+    }
+    return enrollments;
+  }
+  public List<Enrollment> getInstructorPendingEnrollments(Integer iid) {
+    String query = "SELECT c FROM Course c WHERE c.instructorid = :iid";
+    TypedQuery<Course> typedQuery = em.createQuery(query, Course.class);
+    typedQuery.setParameter("iid", iid);
+    List<Course> courses = typedQuery.getResultList();
+    List<Enrollment> enrollments = new ArrayList<>();
+    for(Course course : courses) {
+      String query2 = "SELECT e FROM Enrollment e WHERE e.cid = :cid AND c.status = :status";
+      TypedQuery<Enrollment> typedQuery2 = em.createQuery(query2, Enrollment.class);
+      typedQuery2.setParameter("status", "pending");
+      typedQuery2.setParameter("cid", course.getId());
+      enrollments.addAll(typedQuery2.getResultList());
+    }
+    return enrollments;
+  }
 }

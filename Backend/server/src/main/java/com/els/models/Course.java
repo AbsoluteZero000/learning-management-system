@@ -48,7 +48,7 @@ public class Course {
     private String status;
 
     @Column(name = "instructorid")
-    private String instructorid;
+    private Integer instructorid;
 
 
 
