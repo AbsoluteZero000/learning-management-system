@@ -4,9 +4,9 @@ import axios from "axios";
 function ViewEnrollments() {
   const [enrollments, setEnrollments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const userId = JSON.parse(localStorage.getItem("user")).id;
 
   const fetchEnrollments = async () => {
-    const userId = JSON.parse(localStorage.getItem("user")).id; // Assuming user_id is stored in localStorage
     if (!userId) {
       console.error("User ID not found in localStorage.");
       return;
@@ -28,6 +28,7 @@ function ViewEnrollments() {
 
   useEffect(() => {
     fetchEnrollments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const cancelEnrollment = async (enrollmentId) => {

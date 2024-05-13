@@ -3,6 +3,7 @@ import ViewEnrollments from "../Functions/Student/ViewEnrollments";
 import MakeCourseReview from "../Functions/Student/MakeCourseReview";
 import MakeEnrollment from "../Functions/Student/MakeEnrollment";
 import SearchCourse from "../Functions/Instructor/SearchCourse";
+import Notification from "../Functions/Student/Notification";
 
 function Student() {
   const [currFunction, setCurrFunction] = useState(null);
@@ -39,6 +40,7 @@ function Student() {
         <button onClick={showEnroll}>Enroll</button>
       </div>
       {currFunction && functions[currFunction]}
+      <Notification />
     </div>
   );
 }
