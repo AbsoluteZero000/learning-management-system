@@ -215,4 +215,11 @@ public List<Enrollment> getInstructorEnrollments(Integer iid) {
     }
     return enrollments;
   }
+
+
+  public List<Review> getAllReviews() {
+    String query = "SELECT r FROM Review r";
+    TypedQuery<Review> typedQuery = em.createQuery(query, Review.class);
+    return typedQuery.getResultList();
+  }
 }

@@ -88,6 +88,12 @@ public class CourseAPI {
     return courseRepo.searchCourseByCategory(name);
   }
 
+  @GET
+  @Path("/reviews")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Review> getAllReviews() {
+    return courseRepo.getAllReviews();
+  }
   @POST
   @Path("/enroll/{cid}/{sid}")
   public Response enrollCourse( @PathParam("cid") Integer cid, @PathParam("sid") Integer sid) {
