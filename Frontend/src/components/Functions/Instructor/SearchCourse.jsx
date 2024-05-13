@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CourseTable from "./CourseTable";
-import StudentCourseTable from "../Student/StudentCourseTable";
 
 function SearchCourse() {
   const [criteria, setCriteria] = useState("name");
   const [value, setValue] = useState("");
   const [courses, setCourses] = useState(null);
   const [loading, setLoading] = useState(false);
-  const userRole = JSON.parse(localStorage.getItem("user")).role;
 
   const fetchCourses = async () => {
     if (!value.trim()) {
@@ -57,11 +55,7 @@ function SearchCourse() {
       {loading ? (
         <p>Loading...</p>
       ) : courses ? (
-        userRole === "instructor" ? (
-          <CourseTable courses={courses} />
-        ) : (
-          <StudentCourseTable courses={courses} />
-        )
+        <CourseTable courses={courses} />
       ) : (
         <p>No courses found.</p>
       )}
