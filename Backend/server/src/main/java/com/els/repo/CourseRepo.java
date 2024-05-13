@@ -56,7 +56,7 @@ public class CourseRepo {
     return true;
   }
   public List<Course> searchCourseByCategory(String catgeory) {
-    String query = "SELECT c FROM Course c WHERE UPPER(c.name) LIKE UPPER(:category) AND c.status = :status";
+    String query = "SELECT c FROM Course c WHERE UPPER(c.category) LIKE UPPER(:category) AND c.status = :status";
     TypedQuery<Course> typedQuery = em.createQuery(query, Course.class);
     typedQuery.setParameter("category", "%" + catgeory + "%");
     typedQuery.setParameter("status", "accepted");
