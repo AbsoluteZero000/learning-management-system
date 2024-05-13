@@ -4,6 +4,7 @@ import axios from "axios";
 function MakeEnrollment() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const userId = JSON.parse(localStorage.getItem("user")).id;
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -24,7 +25,6 @@ function MakeEnrollment() {
   }, []);
 
   const enrollCourse = async (courseId) => {
-    const userId = JSON.parse(localStorage.getItem("user")).id; // Assuming user_id is stored in localStorage
     if (!userId) {
       console.error("User ID not found in localStorage.");
       return;
