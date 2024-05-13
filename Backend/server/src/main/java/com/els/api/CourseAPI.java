@@ -97,7 +97,7 @@ public class CourseAPI {
     return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to enroll course.").build();
   }
   @DELETE
-  @Path("/enroll/{id}")
+  @Path("/enroll/delete/{id}")
   public Response deleteEnrollment(@PathParam("id") String id) {
     if(courseRepo.deleteEnrollment(Integer.valueOf(id)))
       return Response.status(Status.OK).entity("Course deleted successfully!").build();
