@@ -32,7 +32,7 @@ function MakeEnrollment() {
 
     try {
       await axios.post(
-        `http://localhost:8080/server/api/course/enroll/${userId}/${courseId}`
+        `http://localhost:8080/server/api/course/enroll/${courseId}/${userId}`
       );
       alert("Enrollement submitted!");
     } catch (error) {
