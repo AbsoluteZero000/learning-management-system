@@ -1,15 +1,15 @@
 import { useState } from "react";
 import ViewEnrollments from "../Functions/Student/ViewEnrollments";
 import MakeCourseReview from "../Functions/Student/MakeCourseReview";
-import ViewCourse from "../Functions/Instructor/ViewCourse";
 import MakeEnrollment from "../Functions/Student/MakeEnrollment";
+import SearchCourse from "../Functions/Instructor/SearchCourse";
 
 function Student() {
   const [currFunction, setCurrFunction] = useState(null);
   const functions = {
     makeCourseReview: <MakeCourseReview />,
     viewEnrollments: <ViewEnrollments />,
-    viewCourse: <ViewCourse />,
+    viewCourse: <SearchCourse />,
     enroll: <MakeEnrollment />,
   };
 
