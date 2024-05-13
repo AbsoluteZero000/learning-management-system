@@ -222,4 +222,12 @@ public List<Enrollment> getInstructorEnrollments(Integer iid) {
     TypedQuery<Review> typedQuery = em.createQuery(query, Review.class);
     return typedQuery.getResultList();
   }
+
+
+public List<Course> getStudentCourses(Integer sid) {
+    String query = "SELECT c FROM Course c WHERE c.id IN (SELECT e.cid FROM Enrollment e WHERE e.sid = :sid)";
+    TypedQuery<Course> typedQuery = em.createQuery(query, Course.class);
+    typedQuery.setParameter("sid", sid);
+    return typedQuery.getResultList();
+}
 }

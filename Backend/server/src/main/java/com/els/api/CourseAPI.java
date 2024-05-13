@@ -2,6 +2,8 @@ package com.els.api;
 
 import java.util.List;
 
+import javax.annotation.processing.Generated;
+
 import com.els.models.Course;
 import com.els.models.Enrollment;
 import com.els.models.Notification;
@@ -47,7 +49,11 @@ public class CourseAPI {
 
   }
 
-
+  @GET
+  @Path("/get/student/{sid}")
+  public List<Course> getStudentCourses(@PathParam("sid") Integer sid) {
+    return courseRepo.getStudentCourses(sid);
+  }
   @GET
   @Path("/get/{id}")
   @Produces(MediaType.APPLICATION_JSON)
