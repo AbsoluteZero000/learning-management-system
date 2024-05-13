@@ -8,6 +8,7 @@ import com.els.models.Enrollment;
 import com.els.models.Notification;
 import com.els.models.Review;
 import com.els.repo.CourseRepo;
+import com.els.util.Stats;
 
 import jakarta.annotation.Resource;
 import jakarta.ejb.EJBContext;
@@ -170,7 +171,12 @@ public class CourseAPI {
   public List<Review> getReviewsByCourse(@PathParam("cid") int cid) {
     return courseRepo.getAllReviewsForCid(cid);
   }
-
+  @GET
+  @Path("/stats")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Stats getStats() {
+    return courseRepo.getStats();
+  }
   @GET
   @Path("/reviews/student/{sid}")
   @Produces(MediaType.APPLICATION_JSON)

@@ -53,6 +53,10 @@ def user_by_id(user_id):
     response = service.delete_user(user_id)
     return jsonify(response)
 
+@app.route("/admin/stats", methods=["GET"])
+def get_stats():
+  response = service.get_stats()
+  return jsonify(response)
 
 if __name__ == "__main__":
     service.create_tables()

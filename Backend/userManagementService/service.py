@@ -1,5 +1,7 @@
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
+import requests
+import json
 
 DATABASE_PATH = "users.db"
 
@@ -165,3 +167,23 @@ def get_user_by_id(user_id):
     return User(row)
   else:
     return None
+
+def get_stats():
+  conn = connect_db()
+  cursor = conn.cursor()
+  cursor.execute("SELECT COUNT(*) FROM Account")
+  total_users = cursor.fetchone()[0]
+  cursor.execute("SELECT COUNT(*) FROM Account WHERE role = 'student'")
+  total_students = cursor.fetchone()[0]
+  cursor.execute("SELECT COUNT(*) FROM Account WHERE role = 'instructor'")
+  total_instructors = cursor.fetchone()[0]
+  conn.close()
+  request = requests.get("http://localhost:8080/server/api/course/stats")
+  if request.status_code == 200:
+    data = json.loads(request.content)
+    number_of_courses = data["numberOfCourses"]
+    number_of_enrollments = data["numberOfEnrollments"]
+    number_of_reviews = data["numberOfReviews"]
+    return {"total_users": total_users, "total_students": total_students, "total_instructors": total_instructors, "number_of_courses": number_of_courses, "number_of_enrollments": number_of_enrollments, "number_of_reviews": number_of_reviews}
+
+  return {"total_users": total_users, "total_students": total_students, "total_instructors": total_instructors}

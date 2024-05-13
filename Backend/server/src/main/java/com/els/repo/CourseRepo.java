@@ -7,6 +7,7 @@ import com.els.models.Course;
 import com.els.models.Enrollment;
 import com.els.models.Notification;
 import com.els.models.Review;
+import com.els.util.Stats;
 
 import jakarta.ejb.Singleton;
 import jakarta.persistence.EntityManager;
@@ -248,4 +249,22 @@ public List<Course> getAllEnrollments(Integer sid) {
     }
     return courses;
 }
+
+
+public Stats getStats() {
+    String query = "SELECT COUNT(c) FROM Course c";
+    TypedQuery<Long> typedQuery = em.createQuery(query, Long.class);
+    List<Long> courses = typedQuery.getResultList();
+    query = "SELECT COUNT(r) FROM Review r";
+    typedQuery = em.createQuery(query, Long.class);
+    List<Long> reviews = typedQuery.getResultList();
+    query = "SELECT COUNT(e) FROM Enrollment e";
+    typedQuery = em.createQuery(query, Long.class);
+    List<Long> enrollments = typedQuery.getResultList();
+    Stats stats = new Stats();
+    stats.numberOfCourses = courses.get(0).intValue();
+    stats.numberOfReviews =reviews.get(0).intValue();
+    stats.numberOfEnrollments = enrollments.get(0).intValue();
+    return stats;
+  }
 }
