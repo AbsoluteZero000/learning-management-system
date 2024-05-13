@@ -3,7 +3,7 @@ import { useAuth } from "../../contexts/AuthProvider";
 
 export default function Login() {
   const [input, setInput] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -27,8 +27,8 @@ export default function Login() {
       <form onSubmit={handleSubmitEvent}>
         <input
           type="text"
-          placeholder="Username"
-          name="username"
+          placeholder="Email"
+          name="email"
           onChange={handleInput}
           required
         />

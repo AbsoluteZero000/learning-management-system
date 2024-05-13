@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
-const StudentSignup = () => {
+const StudentSignup = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    role: "student",
     affiliation: "",
     bio: "",
   });
@@ -19,7 +20,7 @@ const StudentSignup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    onSubmit(formData);
   };
 
   return (

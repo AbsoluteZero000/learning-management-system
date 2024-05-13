@@ -1,31 +1,33 @@
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext } from "react";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   const loginAction = async (data) => {
     try {
-      // Simulating a successful login for demonstration purposes
-      setUser(data.username);
-      localStorage.setItem("site", "loggedIn");
+      const res = await axios.post("/login", data);
+      if (res.data[1] === 401) {
+        alert(res.data[0].message);
+        return;
+      }
+      const response = JSON.stringify(res.data[0].user);
+      localStorage.setItem("user", response);
       navigate("home");
     } catch (err) {
-      console.error(err);
+      alert("Network Error.");
     }
   };
 
   const logOut = () => {
-    setUser(null);
     localStorage.clear();
     navigate("/");
   };
 
   return (
-    <AuthContext.Provider value={{ user, loginAction, logOut }}>
+    <AuthContext.Provider value={{ loginAction, logOut }}>
       {children}
     </AuthContext.Provider>
   );
