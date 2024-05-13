@@ -60,9 +60,10 @@ public class CourseAPI {
   }
   @GET
   @Path("/get/{id}")
-  public String getCourse(@PathParam("id") String id) {
+  @Produces(MediaType.APPLICATION_JSON)
+  public Course getCourse(@PathParam("id") String id) {
     Course course = em.find(Course.class, Integer.valueOf(id));
-    return course.getName();
+    return course;
   }
 
   @GET
@@ -105,6 +106,12 @@ public class CourseAPI {
   @Produces(MediaType.APPLICATION_JSON)
   public List<Course> getEnrolledCourses(@PathParam("sid") Integer sid) {
     return courseRepo.getEnrolledCourses(sid);
+  }
+  @GET
+  @Path("/enroll/{iid}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Course> getInstructedCourses(@PathParam("iid") Integer iid) {
+    return courseRepo.getInstructedCourses(iid);
   }
   @PUT
   @Path("/enroll/{cid}/{sid}/{status}")
