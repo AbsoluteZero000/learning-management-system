@@ -16,7 +16,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
-import jakarta.ws.rs.OPTIONS;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -48,17 +47,7 @@ public class CourseAPI {
 
   }
 
-  @OPTIONS
-  @Path("{path : .*}")
-  public Response options() {
-      return Response.ok("")
-              .header("Access-Control-Allow-Origin", "*")
-              .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-              .header("Access-Control-Allow-Credentials", "true")
-              .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-              .header("Access-Control-Max-Age", "1209600")
-              .build();
-  }
+
   @GET
   @Path("/get/{id}")
   @Produces(MediaType.APPLICATION_JSON)

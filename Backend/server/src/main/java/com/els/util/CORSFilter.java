@@ -20,6 +20,7 @@ public class CORSFilter implements ContainerResponseFilter {
 
       if (requestContext.getMethod().equals("OPTIONS"))
          cres.setStatus(200);
+         
    }
 
 }
