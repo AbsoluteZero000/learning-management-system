@@ -66,7 +66,7 @@ function MakeEnrollment() {
                 <td>{course.description}</td>
                 <td>{course.category}</td>
                 <td>{course.content}</td>
-                <td>{course.duration}</td>
+                <td>{course.duration} week(s)</td>
                 <td>
                   <button onClick={() => enrollCourse(course.id)}>
                     Enroll
