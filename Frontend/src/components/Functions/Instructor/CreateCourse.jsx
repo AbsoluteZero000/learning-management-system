@@ -8,7 +8,7 @@ function CreateCourse() {
     duration: "",
     category: "",
     content: "",
-    rating: "",
+    rating: "0",
     capacity: "",
     instructorid: JSON.parse(localStorage.getItem("user")).id,
   });
@@ -65,18 +65,7 @@ function CreateCourse() {
           <label>Content:</label>
           <textarea name="content" onChange={handleChange} required />
         </div>
-
-        <div style={{ marginBottom: "1rem" }}>
-          <label>Rating:</label>
-          <input
-            type="number"
-            name="rating"
-            min="1"
-            onChange={handleChange}
-            required
-          />
-        </div>
-
+        
         <div style={{ marginBottom: "1rem" }}>
           <label>Capacity:</label>
           <input

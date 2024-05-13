@@ -55,7 +55,7 @@ function SearchCourse() {
       </div>
       {loading ? (
         <p>Loading...</p>
-      ) : courses ? (
+      ) : courses && courses.length > 0 ? (
         <CourseTable courses={courses} />
       ) : (
         <p>No courses found.</p>

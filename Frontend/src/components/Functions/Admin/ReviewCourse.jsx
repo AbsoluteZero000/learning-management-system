@@ -5,21 +5,21 @@ function ReviewCourse() {
   const [pendingCourses, setPendingCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          "http://localhost:8080/server/api/course/pending"
-        );
-        setPendingCourses(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        "http://localhost:8080/server/api/course/pending"
+      );
+      setPendingCourses(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -30,7 +30,7 @@ function ReviewCourse() {
         `http://localhost:8080/server/api/course/update/${id}/${action}`
       );
       alert("Status updated successfully!");
-      setPendingCourses([]);
+      fetchData();
     } catch (error) {
       console.error("Error updating course:", error);
     } finally {
