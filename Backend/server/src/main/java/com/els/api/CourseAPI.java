@@ -144,6 +144,20 @@ public class CourseAPI {
       return Response.status(Status.OK).entity("Course updated successfully!").build();
     return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to update course.").build();
   }
+  @DELETE
+  @Path("/delete/{cid}")
+  public Response deleteCourse(@PathParam("cid") Integer cid) {
+    if(courseRepo.deleteCourse(cid))
+      return Response.status(Status.OK).entity("Course deleted successfully!").build();
+    return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to delete course.").build();
+  }
+  @PUT
+  @Path("/edit/{cid}")
+  public Response editCourse(@PathParam("cid") Integer cid, Course course) {
+    if(courseRepo.editCourse(cid, course))
+      return Response.status(Status.OK).entity("Course edited successfully!").build();
+    return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Failed to edit course.").build();
+  }
   @GET
   @Path("/notification/{sid}")
   @Produces(MediaType.APPLICATION_JSON)

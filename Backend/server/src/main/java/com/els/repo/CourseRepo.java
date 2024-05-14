@@ -269,4 +269,29 @@ public Stats getStats() {
     stats.numberOfEnrollments = enrollments.get(0).intValue();
     return stats;
   }
+
+
+  public boolean deleteCourse(Integer cid) {
+    Course course = em.find(Course.class, cid);
+    if(course == null) return false;
+    em.remove(course);
+    return true;
+
+  }
+
+
+public boolean editCourse(Integer cid, Course course) {
+  Course c = em.find(Course.class, cid);
+  if(c == null) return false;
+  if(course.getName() != null) c.setName(course.getName());
+  if(course.getDescription() != null) c.setDescription(course.getDescription());
+  if(course.getCategory() != null) c.setCategory(course.getCategory());
+  if(course.getDuration() != null) c.setDuration(course.getDuration());
+  if(course.getStatus() != null) c.setStatus(course.getStatus());
+  if(course.getCapacity() != 0) c.setCapacity(course.getCapacity());
+  if(course.getInstructorid() != 0) c.setInstructorid(course.getInstructorid());
+  em.merge(c);
+  return true;
+}
+
 }
