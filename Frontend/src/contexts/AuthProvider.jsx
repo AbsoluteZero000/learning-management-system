@@ -1,6 +1,6 @@
 import { useContext, createContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { usersMicroservice } from "../routes/axiosinstances";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
 
   const loginAction = async (data) => {
     try {
-      const res = await axios.post("/login", data);
+      const res = await usersMicroservice.post("/login", data);
       if (res.data[1] === 401) {
         alert(res.data[0].message);
         return;

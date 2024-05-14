@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { coursesMicroservice } from "../../../routes/axiosinstances";
 
 function MakeCourseReview() {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
@@ -9,12 +9,12 @@ function MakeCourseReview() {
   const [activeCourseId, setActiveCourseId] = useState(null);
 
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem("user")).id; // Get user ID from localStorage
+    const userId = JSON.parse(localStorage.getItem("user")).id;
     const fetchEnrolledCourses = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `http://localhost:8080/server/api/course/get/student/${userId}`
+        const response = await coursesMicroservice.get(
+          `course/get/student/${userId}`
         );
         setEnrolledCourses(response.data);
       } catch (error) {
@@ -37,10 +37,7 @@ function MakeCourseReview() {
     };
 
     try {
-      await axios.post(
-        `http://localhost:8080/server/api/course/review`,
-        reviewData
-      );
+      await coursesMicroservice.post(`course/review`, reviewData);
       alert("Review submitted successfully!");
       setReviewText("");
       setRating(0);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import { coursesMicroservice } from "../../../routes/axiosinstances";
 
 function CreateCourse() {
   const [courseData, setCourseData] = useState({
@@ -21,10 +21,7 @@ function CreateCourse() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
-        "http://localhost:8080/server/api/course/addcourse",
-        courseData
-      );
+      await coursesMicroservice.post("course/addcourse", courseData);
       alert("Course created successfully!");
     } catch (error) {
       alert("Network Error.");
@@ -65,7 +62,7 @@ function CreateCourse() {
           <label>Content:</label>
           <textarea name="content" onChange={handleChange} required />
         </div>
-        
+
         <div style={{ marginBottom: "1rem" }}>
           <label>Capacity:</label>
           <input

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import InstructorSignup from "./InstructorSignup";
 import StudentSignup from "./StudentSignup";
-import axios from "axios";
+import { usersMicroservice } from "../../routes/axiosinstances";
 
 export default function Signup() {
   const [signup, setSignup] = useState("student");
@@ -14,7 +14,7 @@ export default function Signup() {
 
   const handleSignup = async (formData) => {
     try {
-      const res = await axios.post("/signup", formData);
+      const res = await usersMicroservice.post("/signup", formData);
       if (res.data[1] === 400) {
         alert(res.data[0].message);
         return;

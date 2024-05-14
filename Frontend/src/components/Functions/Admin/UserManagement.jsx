@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { usersMicroservice } from "../../../routes/axiosinstances";
 
 function UserManagement() {
   const [users, setUsers] = useState([]);
@@ -14,7 +14,7 @@ function UserManagement() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/users");
+      const response = await usersMicroservice.get("users");
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -32,7 +32,7 @@ function UserManagement() {
     }
 
     try {
-      await axios.delete(`/users/${userId}`);
+      await usersMicroservice.delete(`users/${userId}`);
       setUsers(users.filter((user) => user.id !== userId));
     } catch (error) {
       console.error("Error deleting user:", error);
@@ -46,12 +46,9 @@ function UserManagement() {
 
   const handleChangeEmail = async () => {
     try {
-      const res = await axios.put(
-        `http://127.0.0.1:5000/users/${selectedUserId}`,
-        {
-          email: newEmail,
-        }
-      );
+      const res = await usersMicroservice.put(`users/${selectedUserId}`, {
+        email: newEmail,
+      });
       if (res.data[1] === 200) {
         fetchUsers();
         setShowEmailInput(false);

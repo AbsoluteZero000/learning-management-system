@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { coursesMicroservice } from "../../../routes/axiosinstances";
 
 function MakeEnrollment() {
   const [courses, setCourses] = useState([]);
@@ -10,9 +10,7 @@ function MakeEnrollment() {
     const fetchCourses = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          "http://localhost:8080/server/api/course/sorted"
-        );
+        const response = await coursesMicroservice.get("course/sorted");
         setCourses(response.data);
       } catch (error) {
         console.error("Error fetching courses:", error);
@@ -31,9 +29,7 @@ function MakeEnrollment() {
     }
 
     try {
-      await axios.post(
-        `http://localhost:8080/server/api/course/enroll/${courseId}/${userId}`
-      );
+      await coursesMicroservice.post(`course/enroll/${courseId}/${userId}`);
       alert("Enrollement submitted!");
     } catch (error) {
       console.error("Error enrolling:", error);

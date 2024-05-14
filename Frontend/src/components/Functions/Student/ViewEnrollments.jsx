@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { coursesMicroservice } from "../../../routes/axiosinstances";
 
 function ViewEnrollments() {
   const [enrollments, setEnrollments] = useState([]);
@@ -14,11 +14,11 @@ function ViewEnrollments() {
 
     try {
       setLoading(true);
-      const response = await axios.get(
-        `http://localhost:8080/server/api/course/enroll/all/${userId}`
+      const response = await coursesMicroservice.get(
+        `course/enroll/all/${userId}`
       );
       setEnrollments(response.data);
-      console.log("Enrollments:", response.data); // Log fetched data
+      console.log("Enrollments:", response.data);
     } catch (error) {
       console.error("Error fetching enrollments:", error);
     } finally {
@@ -33,11 +33,8 @@ function ViewEnrollments() {
 
   const cancelEnrollment = async (enrollmentId) => {
     try {
-      await axios.delete(
-        `http://localhost:8080/server/api/course/enroll/delete/${enrollmentId}`
-      );
+      await coursesMicroservice.delete(`course/enroll/delete/${enrollmentId}`);
       alert("Enrollment canceled successfully!");
-      // Refetch enrollments after cancellation
       fetchEnrollments();
     } catch (error) {
       console.error("Error canceling enrollment:", error);

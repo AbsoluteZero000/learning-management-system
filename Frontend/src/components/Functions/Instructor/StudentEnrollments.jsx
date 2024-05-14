@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { coursesMicroservice } from "../../../routes/axiosinstances";
 
 function StudentEnrollments() {
   const [enrollments, setEnrollments] = useState([]);
@@ -9,8 +9,8 @@ function StudentEnrollments() {
   const fetchEnrollments = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        `http://localhost:8080/server/api/course/enroll/instructor/pending/${instructorId}`
+      const response = await coursesMicroservice.get(
+        `course/enroll/instructor/pending/${instructorId}`
       );
       setEnrollments(response.data);
     } catch (error) {
@@ -28,9 +28,7 @@ function StudentEnrollments() {
   const handleAction = async (cid, sid, status) => {
     try {
       setLoading(true);
-      await axios.put(
-        `http://localhost:8080/server/api/course/enroll/${cid}/${sid}/${status}`
-      );
+      await coursesMicroservice.put(`course/enroll/${cid}/${sid}/${status}`);
       alert(status === 1 ? "Enrollment accepted!" : "Enrollment rejected!");
       fetchEnrollments();
     } catch (error) {

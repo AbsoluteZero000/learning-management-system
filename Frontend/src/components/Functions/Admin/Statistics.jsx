@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { usersMicroservice } from "../../../routes/axiosinstances";
 
 function Statistics() {
   const [stats, setStats] = useState(null);
@@ -8,9 +8,7 @@ function Statistics() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await axios.get(
-          "admin/stats"
-        );
+        const response = await usersMicroservice.get("admin/stats");
         if (response.status === 200) {
           setStats(response.data);
         } else {

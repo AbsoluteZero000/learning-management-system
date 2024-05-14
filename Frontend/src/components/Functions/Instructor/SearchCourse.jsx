@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import CourseTable from "./CourseTable";
+import { coursesMicroservice } from "../../../routes/axiosinstances";
 
 function SearchCourse() {
   const [criteria, setCriteria] = useState("name");
@@ -14,8 +14,8 @@ function SearchCourse() {
     }
     try {
       setLoading(true);
-      const response = await axios.get(
-        `http://localhost:8080/server/api/course/search/${criteria}/${value}`
+      const response = await coursesMicroservice.get(
+        `course/search/${criteria}/${value}`
       );
       setCourses(response.data);
     } catch (error) {

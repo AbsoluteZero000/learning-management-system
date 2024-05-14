@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { coursesMicroservice } from "../../../routes/axiosinstances";
 
 function ReviewCourse() {
   const [pendingCourses, setPendingCourses] = useState([]);
@@ -8,9 +8,7 @@ function ReviewCourse() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        "http://localhost:8080/server/api/course/pending"
-      );
+      const response = await coursesMicroservice.get("course/pending");
       setPendingCourses(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -26,9 +24,7 @@ function ReviewCourse() {
   const handleUpdate = async (id, action) => {
     try {
       setLoading(true);
-      await axios.put(
-        `http://localhost:8080/server/api/course/update/${id}/${action}`
-      );
+      await coursesMicroservice.put(`course/update/${id}/${action}`);
       alert("Status updated successfully!");
       fetchData();
     } catch (error) {

@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { coursesMicroservice } from "../../../routes/axiosinstances";
 
 function Notification() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem("user")).id; // Get user ID from localStorage
+    const userId = JSON.parse(localStorage.getItem("user")).id;
     const fetchNotifications = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `http://localhost:8080/server/api/course/notification/${userId}`
+        const response = await coursesMicroservice.get(
+          `course/notification/${userId}`
         );
         setNotifications(response.data);
       } catch (error) {
