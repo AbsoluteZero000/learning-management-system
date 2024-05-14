@@ -7,6 +7,7 @@ import com.els.models.Course;
 import com.els.models.Enrollment;
 import com.els.models.Notification;
 import com.els.models.Review;
+import com.els.util.CourseWrapper;
 import com.els.util.Stats;
 
 import jakarta.ejb.Singleton;
@@ -234,20 +235,21 @@ public List<Course> getStudentCourses(Integer sid) {
 }
 
 
-public List<Course> getAllEnrollments(Integer sid) {
+public List<CourseWrapper> getAllEnrollments(Integer sid) {
     String query = "SELECT c FROM Course c WHERE c.id IN (SELECT e.cid FROM Enrollment e WHERE e.sid = :sid)";
     TypedQuery<Course> typedQuery = em.createQuery(query, Course.class);
     typedQuery.setParameter("sid", sid);
     List<Course> courses = typedQuery.getResultList();
+    List<CourseWrapper> courseWrappers = new ArrayList<>();
     for(int i = 0;i < courses.size(); i++) {
       String query2 = "SELECT e FROM Enrollment e WHERE e.cid = :cid AND e.sid = :sid";
       TypedQuery<Enrollment> typedQuery2 = em.createQuery(query2, Enrollment.class);
       typedQuery2.setParameter("cid", courses.get(i).getId());
       typedQuery2.setParameter("sid", sid);
       List<Enrollment> enrollments = typedQuery2.getResultList();
-      courses.get(i).setStatus(enrollments.get(0).getStatus());
+      courseWrappers.add(new CourseWrapper(courses.get(i), enrollments.get(0).getStatus()));
     }
-    return courses;
+    return courseWrappers;
 }
 
 

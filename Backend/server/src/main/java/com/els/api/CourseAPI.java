@@ -8,6 +8,7 @@ import com.els.models.Enrollment;
 import com.els.models.Notification;
 import com.els.models.Review;
 import com.els.repo.CourseRepo;
+import com.els.util.CourseWrapper;
 import com.els.util.Stats;
 
 import jakarta.annotation.Resource;
@@ -113,7 +114,7 @@ public class CourseAPI {
   @GET
   @Path("/enroll/all/{sid}")
   @Produces(MediaType.APPLICATION_JSON)
-  public List<Course> getAllEnrollments(@PathParam("sid") Integer sid) {
+  public List<CourseWrapper> getAllEnrollments(@PathParam("sid") Integer sid) {
     return courseRepo.getAllEnrollments(sid);
   }
   @GET
