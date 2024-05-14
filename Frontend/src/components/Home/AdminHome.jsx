@@ -1,20 +1,20 @@
 import { useState } from "react";
 import CourseManagement from "../Functions/Admin/CourseManagement";
 import ReviewCourse from "../Functions/Admin/ReviewCourse";
-import TrackStats from "../Functions/Admin/TrackStats";
 import UserManagement from "../Functions/Admin/UserManagement";
+import Statistics from "../Functions/Admin/Statistics";
 
 function Admin() {
   const [currFunction, setCurrFunction] = useState(null);
   const functions = {
     courseManagement: <CourseManagement />,
-    reviewCourse: <ReviewCourse />,
-    trackStats: <TrackStats />,
+    pendingCourse: <ReviewCourse />,
+    statistics: <Statistics />,
     userManagement: <UserManagement />,
   };
 
   const showReviewCourse = () => {
-    setCurrFunction("reviewCourse");
+    setCurrFunction("pendingCourse");
   };
 
   const showCourseManagement = () => {
@@ -22,7 +22,7 @@ function Admin() {
   };
 
   const showTrackStats = () => {
-    setCurrFunction("trackStats");
+    setCurrFunction("statistics");
   };
 
   const showUserManagement = () => {
@@ -34,7 +34,7 @@ function Admin() {
       <h2>Admin</h2>
       <div>
         <button onClick={showCourseManagement}>Manage Courses</button>
-        <button onClick={showReviewCourse}>Review Courses</button>
+        <button onClick={showReviewCourse}>Pending Courses</button>
         <button onClick={showTrackStats}>Statistics</button>
         <button onClick={showUserManagement}>User Management</button>
       </div>
