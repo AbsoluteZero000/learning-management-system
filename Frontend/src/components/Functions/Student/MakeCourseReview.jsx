@@ -70,7 +70,7 @@ function MakeCourseReview() {
                 <th>Duration</th>
                 <th>Capacity</th>
                 <th>Instructor ID</th>
-                <th>Action</th>
+                <th>Review</th>
               </tr>
             </thead>
             <tbody>
