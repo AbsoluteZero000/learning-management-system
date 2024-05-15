@@ -121,11 +121,11 @@ public class CourseRepo {
   public float avgRating(List<Review> reviews){
     int sum = 0;
     for(int i = 0; i < reviews.size(); i++){
-      sum += reviews.get(i).getRating();
+        sum += reviews.get(i).getRating();
     }
     if(reviews.size() == 0) return 0;
-    return sum / reviews.size();
-  }
+    return sum / (float)reviews.size(); // Cast sum to float here
+}
   public List<Review> getAllReviewsForSid(int sid){
     String query = "SELECT r FROM Review r WHERE r.sid = :sid";
     TypedQuery<Review> typedQuery = em.createQuery(query, Review.class);
