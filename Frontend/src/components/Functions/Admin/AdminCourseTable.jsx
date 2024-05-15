@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Reviews from "./Reviews"; // Assuming the Reviews component is in a separate file
 
-const CourseTable = ({ courses }) => {
+const AdminCourseTable = ({ courses }) => {
   const [showReviews, setShowReviews] = useState({});
 
   const toggleReviews = (courseId) => {
@@ -41,4 +41,4 @@ const CourseTable = ({ courses }) => {
   );
 };
 
-export default CourseTable;
+export default AdminCourseTable;
