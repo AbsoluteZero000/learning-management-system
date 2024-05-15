@@ -25,6 +25,7 @@ public class CourseRepo {
   public boolean addCourse(Course course) {
       try {
           course.setStatus("pending");
+          course.setRating(0.0f);
           em.persist(course);
           return true;
         } catch (Exception e) {
@@ -107,7 +108,23 @@ public class CourseRepo {
   }
   public Boolean review(Review review){
     em.persist(review);
+    String query = "SELECT r FROM Review r Where r.cid = :cid";
+    TypedQuery<Review> typedQuery = em.createQuery(query, Review.class);
+    typedQuery.setParameter("cid", review.getCid());
+
+    List<Review> reviews = typedQuery.getResultList();
+    Course course = em.find(Course.class, review.getCid());
+    course.setRating(avgRating(reviews));
+    em.merge(course);
     return true;
+  }
+  public float avgRating(List<Review> reviews){
+    int sum = 0;
+    for(int i = 0; i < reviews.size(); i++){
+      sum += reviews.get(i).getRating();
+    }
+    if(reviews.size() == 0) return 0;
+    return sum / reviews.size();
   }
   public List<Review> getAllReviewsForSid(int sid){
     String query = "SELECT r FROM Review r WHERE r.sid = :sid";
