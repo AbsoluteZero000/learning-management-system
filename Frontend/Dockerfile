@@ -3,10 +3,8 @@ FROM node:alpine AS development
 ENV NODE_ENV development
 WORKDIR /react-app
 
-COPY ./package*.json /react-app
+COPY build .
 
-RUN npm install
+RUN npm install -g serve
 
-COPY . .
-
-CMD ["npm","start"]
+CMD ["serve", "-s", "build"]
