@@ -3,8 +3,8 @@ FROM node:alpine AS development
 ENV NODE_ENV development
 WORKDIR /react-app
 
-COPY build .
+COPY . .
 
 RUN npm install -g serve
 
-CMD ["serve", "-s", "build"]
+CMD ["serve", "-s", "build", "-l", "3000"]
