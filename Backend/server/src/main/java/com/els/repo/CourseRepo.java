@@ -305,8 +305,8 @@ public boolean editCourse(Integer cid, Course course) {
   if(course.getCategory() != null) c.setCategory(course.getCategory());
   if(course.getDuration() != null) c.setDuration(course.getDuration());
   if(course.getStatus() != null) c.setStatus(course.getStatus());
-  if(course.getCapacity() != 0) c.setCapacity(course.getCapacity());
-  if(course.getInstructorid() != 0) c.setInstructorid(course.getInstructorid());
+  if(course.getCapacity() != null) c.setCapacity(course.getCapacity());
+  if(course.getInstructorid() != null) c.setInstructorid(course.getInstructorid());
   em.merge(c);
   return true;
 }
