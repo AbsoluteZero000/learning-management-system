@@ -3,20 +3,24 @@ import CourseTable from "./CourseTable";
 import { coursesMicroservice } from "../../../routes/axiosinstances";
 
 function SearchCourse() {
-  const [criteria, setCriteria] = useState("name");
+  const [criteria, setCriteria] = useState("sorted");
   const [value, setValue] = useState("");
   const [courses, setCourses] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const fetchCourses = async () => {
-    if (!value.trim()) {
-      return;
-    }
     try {
       setLoading(true);
-      const response = await coursesMicroservice.get(
-        `course/search/${criteria}/${value}`
-      );
+      let response;
+      if (criteria === "sorted") {
+        response = await coursesMicroservice.get("course/sorted");
+      } else if (value.trim()) {
+        response = await coursesMicroservice.get(
+          `course/search/${criteria}/${value}`
+        );
+      } else {
+        return;
+      }
       setCourses(response.data);
     } catch (error) {
       alert("Network Error.");
@@ -42,17 +46,20 @@ function SearchCourse() {
         >
           <option value="name">Name</option>
           <option value="category">Category</option>
+          <option value="sorted">Sorted by Rating</option>
         </select>
       </div>
-      <div>
-        <label htmlFor="value">Search Value:</label>
-        <input
-          type="text"
-          id="value"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-      </div>
+      {criteria !== "sorted" && (
+        <div>
+          <label htmlFor="value">Search Value:</label>
+          <input
+            type="text"
+            id="value"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+        </div>
+      )}
       {loading ? (
         <p>Loading...</p>
       ) : courses && courses.length > 0 ? (
