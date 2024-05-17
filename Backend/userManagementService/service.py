@@ -178,7 +178,7 @@ def get_stats():
   cursor.execute("SELECT COUNT(*) FROM Account WHERE role = 'instructor'")
   total_instructors = cursor.fetchone()[0]
   conn.close()
-  request = requests.get("http://localhost:8080/server/api/course/stats")
+  request = requests.get("http://backendCourses:8080/server/api/course/stats")
   if request.status_code == 200:
     data = json.loads(request.content)
     number_of_courses = data["numberOfCourses"]
