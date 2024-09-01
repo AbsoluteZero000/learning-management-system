@@ -1,7 +1,3 @@
-Here's the updated README reflecting the use of Java and Python:
-
----
-
 # Learning Management System
 
 This repository contains a simple Learning Management System (LMS) designed to explore and learn about microservices architecture. The project demonstrates the fundamental concepts of microservices by breaking down the LMS into smaller, independently deployable services using Java and Python.
@@ -64,7 +60,3 @@ This project is licensed under the MIT License.
 ## Contact
 
 For any inquiries, please reach out via [GitHub](https://github.com/AbsoluteZero000).
-
----
-
-Let me know if there are any more changes you'd like!
